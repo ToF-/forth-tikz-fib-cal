@@ -18,3 +18,6 @@
 
 : next-coord ( x,y,dx,dy -- x+dx,y+dy )
     rot + -rot + swap ;
+
+: next-direction ( d -- d' )
+    dup 0= if swap negate swap then swap ;

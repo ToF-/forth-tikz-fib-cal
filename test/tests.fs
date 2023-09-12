@@ -21,4 +21,11 @@ t{
     10 6 dir-down  next-coord  7  ?s 10 ?s
     10 6 dir-right next-coord  6  ?s 11 ?s
 }t
+.( next direction ) CR
+t{
+    dir-up    next-direction dir-left  ?d
+    dir-left  next-direction dir-down  ?d
+    dir-down  next-direction dir-right ?d
+    dir-right next-direction dir-up    ?d
+}t
 bye
