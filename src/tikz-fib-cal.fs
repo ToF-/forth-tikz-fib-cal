@@ -11,10 +11,17 @@
 : fib ( n -- n )
     ?dup if (fib) else 0 then ;
 
+: translate ( x,y,i,j -- x+i,y+j )
+    rot + -rot + swap ;
+
  0 -1 2constant dir-up
 -1  0 2constant dir-left
  0  1 2constant dir-down
  1  0 2constant dir-right
+
+
+: rotate ( x,y,rx,ry -- x',y' )
+    rot * -rot * swap ;
 
 2variable direction
 

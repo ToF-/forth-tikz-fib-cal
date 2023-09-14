@@ -14,7 +14,17 @@ t{
     5 fib 5 ?s
     10 fib 55 ?s
 }t
-
+.( translation ) CR
+t{
+    10 8 23 -5 translate 33 3 ?d
+    0  0 -5 12 translate -5 12 ?d
+}t
+.( rotation ) CR
+t{
+    0 0 dir-up rotate 0 0 ?d
+    1 2 dir-up rotate -2 -1 ?d
+}t
+bye
 .( advance ) CR
 t{
     dir-up direction 2!
