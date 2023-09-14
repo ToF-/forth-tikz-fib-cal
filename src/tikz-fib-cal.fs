@@ -14,60 +14,54 @@
 : translate ( x,y,i,j -- x+i,y+j )
     rot + -rot + swap ;
 
- 0 -1 2constant dir-up
--1  0 2constant dir-left
- 0  1 2constant dir-down
- 1  0 2constant dir-right
+: (dir-up) ( i,j -- -j,-i )
+    negate swap negate ;
 
+: (dir-left) ( i,j -- -i,j )
+    swap negate swap ;
 
-: rotate ( x,y,rx,ry -- x',y' )
-    rot * -rot * swap ;
+: (dir-down) ( i,j -- j,i )
+    swap ;
 
-2variable direction
+: (dir-right) ( i,j -- i,-j )
+    negate ;
 
-: next-coord ( x,y,dx,dy -- x+dx,y+dy )
-    rot + -rot + swap ;
+create directions ' (dir-up) , ' (dir-left) , ' (dir-down) , ' (dir-right) ,
 
-: advance ( x,y -- x',y' )
-    direction 2@ next-coord ;
+0 constant dir-up
+1 constant dir-left
+2 constant dir-down
+3 constant dir-right
 
-: next-direction ( d -- d' )
-    dup 0= if swap negate swap then swap ;
+: rotate ( x,y,n -- x',y' )
+    cells directions + @ execute ;
 
-: opposite ( d -- d' )
-    negate swap negate swap ;
+variable (square-xt)
+variable direction
+variable size
+variable square#
+2variable last-coord
 
-: next-direction! 
-    direction 2@ 
-    next-direction
-    direction 2! ;
-
-variable line-length
-
-: next-line ( x,y -- x',y' )
-    direction 2@ swap negate next-coord ;
-
-: new-line ( x,y -- x',y' )
-    direction 2@ opposite direction 2!
-    line-length @ 0 do advance loop
-    direction 2@ opposite direction 2!
-    next-line ;
-
-: square ( x,y,xt -- x'y' )
-    -rot
-    line-length @ 0 do
-        line-length @ 0 do
-            rot >r r@ execute
-            r> -rot advance
+: (square) ( i,j -- )
+    size @ 0 ?do
+        size @ 0 ?do
+            i j direction @ rotate
+            2over translate
+            2dup last-coord 2!
+            (square-xt) @ execute
         loop
-        new-line
-    loop ;
+    loop
+    2drop ;
+: square ( i,j,d,xt,n -- )
+    size ! (square-xt) !  direction !  (square) ;
 
-: calendar ( x,y,n,xt -- )
-    swap 2swap rot 1 do
-        i fib line-length !
-       rot >r r@ square 
-       r> -rot
-    loop 2drop ;
-    
-    
+: fib-squares ( i,j,xt,n -- )
+    dir-right direction !
+    2swap last-coord 2!
+    swap (square-xt) !
+    1 ?do
+        i fib size !
+        cr last-coord 2@ (square) cr
+        direction @ 1+ 4 mod direction !
+        last-coord 2@ 1 0 direction @ rotate translate last-coord 2!
+    loop ;
