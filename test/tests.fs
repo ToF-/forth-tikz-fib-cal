@@ -31,33 +31,56 @@ t{
     1 2 dir-right rotate 1 -2 ?d
 }t
 .( square ) CR
-4096 constant coord$size
-create coord$ coord$size allot
-: d>$ ( d -- addr len) tuck dabs <# #s rot sign #> ;
-: n>$ ( n -- addr len ) s>d d>$ ;
-: coord>s
-    swap
-    s" (" coord$ +place
-    n>$ coord$ +place
-    s" ," coord$ +place
-    n>$ coord$ +place
-    s" )" coord$ +place
-    s"  " coord$ +place ;
 t{
-    coord$ coord$size erase
-    10 2 dir-up ' coord>s 3 square
-    coord$ count s" (10,2) (10,1) (10,0) (9,2) (9,1) (9,0) (8,2) (8,1) (8,0) " ?str
-    coord$ coord$size erase
-    5 3 dir-right ' coord>s 4 square
-    coord$ count s" (5,3) (6,3) (7,3) (8,3) (5,2) (6,2) (7,2) (8,2) (5,1) (6,1) (7,1) (8,1) (5,0) (6,0) (7,0) (8,0) " ?str
-    coord$ coord$size erase
-    -1 -1 dir-left ' coord>s 2 square
-    coord$ count s" (-1,-1) (-2,-1) (-1,0) (-2,0) " ?str
+    coord-max off
+    365 coord-limit !
+    10 2 dir-up 3 square
+    coord-max @ 9 ?s
+    coords 0 cells 2* + 2@ 10 2 ?d
+    coords 1 cells 2* + 2@ 10 1 ?d
+    coords 2 cells 2* + 2@ 10 0 ?d
+    coords 3 cells 2* + 2@  9 2 ?d
+    coords 4 cells 2* + 2@  9 1 ?d
+    coords 5 cells 2* + 2@  9 0 ?d
+    coords 6 cells 2* + 2@  8 2 ?d
+    coords 7 cells 2* + 2@  8 1 ?d
+    coords 8 cells 2* + 2@  8 0 ?d
+}t
+.( rectangle ) CR
+t{
+    coord-max off
+    365 coord-limit !
+    0 0 dir-right 3 2 rectangle
+    coord-max @ 6 ?s
+    coords 0 cells 2* + 2@  0 0 ?d
+    coords 1 cells 2* + 2@  1 0 ?d
+    coords 2 cells 2* + 2@  2 0 ?d
+    coords 3 cells 2* + 2@  0 -1 ?d
+    coords 4 cells 2* + 2@  1 -1 ?d
+    coords 5 cells 2* + 2@  2 -1 ?d
 }t
 .( fibonacci squares ) CR
 t{
-    : .coords swap ." (" . ." ," . ." ) " ;
-    0 0 ' .coords 9 fib-squares
+    coord-max off
+    365 coord-limit !
+    0 0 8 fib-squares
+    last-coord 2@ dir-down 5 21 rectangle
+    coord-max @  365 ?s
+    coords  0 cells 2* + 2@  0  0 ?d
+    coords  1 cells 2* + 2@  0 -1 ?d
+    coords  2 cells 2* + 2@ -1 -1 ?d
+    coords  3 cells 2* + 2@ -2 -1 ?d
+    coords  4 cells 2* + 2@ -1  0 ?d
+    coords  5 cells 2* + 2@ -2  0 ?d
+    coords  6 cells 2* + 2@ -2  1 ?d
+    coords  7 cells 2* + 2@ -2  2 ?d
+    coords  8 cells 2* + 2@ -2  3 ?d
+    coords  9 cells 2* + 2@ -1  1 ?d
+    coords 10 cells 2* + 2@ -1  2 ?d
+    coords 11 cells 2* + 2@ -1  3 ?d
+    coords 12 cells 2* + 2@  0  1 ?d
+    coords 13 cells 2* + 2@  0  2 ?d
+    coords 14 cells 2* + 2@  0  3 ?d
+    .coords
 }t
-
 bye

@@ -36,32 +36,63 @@ create directions ' (dir-up) , ' (dir-left) , ' (dir-down) , ' (dir-right) ,
 : rotate ( x,y,n -- x',y' )
     cells directions + @ execute ;
 
+4096 constant max-coords
+create coords max-coords cells 2* allot
+variable coord-max
+variable coord-limit
+
+
 variable (square-xt)
 variable direction
 variable size
+variable x-size
+variable y-size
 variable square#
 2variable last-coord
 
-: (square) ( i,j -- )
-    size @ 0 ?do
-        size @ 0 ?do
+
+: (rectangle) ( i,j -- )
+    y-size @ 0 ?do
+        x-size @ 0 ?do
             i j direction @ rotate
             2over translate
             2dup last-coord 2!
-            (square-xt) @ execute
+            coord-max @ coord-limit @ < if
+                coord-max @ cells 2* coords + 2!
+                1 coord-max +!
+            else
+                2drop
+            then
         loop
     loop
     2drop ;
-: square ( i,j,d,xt,n -- )
-    size ! (square-xt) !  direction !  (square) ;
 
-: fib-squares ( i,j,xt,n -- )
+: (square) ( i,j -- )
+    size @ dup y-size ! x-size !
+    (rectangle) ;
+
+: rectangle ( i,j,d,w,h -- )
+    y-size ! x-size ! direction ! (rectangle) ;
+    
+: square ( i,j,d,n -- )
+    dup rectangle ;
+
+
+: fib-squares ( i,j,n -- )
     dir-right direction !
-    2swap last-coord 2!
-    swap (square-xt) !
+    -rot last-coord 2!
     1 ?do
         i fib size !
-        cr last-coord 2@ (square) cr
+        last-coord 2@ (square)
         direction @ 1+ 4 mod direction !
         last-coord 2@ 1 0 direction @ rotate translate last-coord 2!
     loop ;
+
+: .coord ( x,y -- )
+    swap ." (" 1 .r ." ," 1 .r ." ) " ;
+
+: .coords
+    coords coord-max @ cells 2* bounds do
+        i 2@ .coord
+    2 cells +loop ;
+        
