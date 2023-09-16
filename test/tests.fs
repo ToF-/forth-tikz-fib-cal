@@ -81,6 +81,31 @@ t{
     coords 12 cells 2* + 2@  0  1 ?d
     coords 13 cells 2* + 2@  0  2 ?d
     coords 14 cells 2* + 2@  0  3 ?d
-    .coords
+    coords 364 cells 2* + 2@ 3 5 ?d
 }t
+.( color strings ) CR
+t{
+    0 color-s s" black" ?str
+    1 color-s s" violet" ?str
+    2 color-s s" olive" ?str
+    3 color-s s" blue" ?str
+    4 color-s s" red" ?str
+    5 color-s s" orange" ?str
+    6 color-s s" brown" ?str
+}t
+.( color index ) CR
+t{
+    0 color-index 0 ?s
+    1 color-index 0 ?s
+    2 color-index 1 ?s
+    5 color-index 1 ?s
+    6 color-index 2 ?s
+    14 color-index 2 ?s
+    15 color-index 3 ?s
+    40 color-index 4 ?s
+    105 color-index 5 ?s
+    273 color-index 6 ?s
+    
+}t
+
 bye

@@ -95,4 +95,33 @@ variable square#
     coords coord-max @ cells 2* bounds do
         i 2@ .coord
     2 cells +loop ;
-        
+
+create colors
+s" black" 2,
+s" violet" 2,
+s" olive" 2,
+s" blue" 2,
+s" red" 2,
+s" orange" 2,
+s" brown" 2,
+
+: color-s ( n -- ad,l )
+    cells 2* colors + 2@ ;
+
+create color-table
+  1 , 0 ,
+  2 , 0 ,
+  6 , 1 ,
+ 15 , 2 ,
+ 40 , 3 ,
+104 , 4 ,
+273 , 5 ,
+366 , 6 ,
+
+: color-index ( n -- i )
+    color-table 8 cells 2* bounds do
+        dup i @ < if
+            i cell+ @
+            leave
+        then
+    2 cells +loop nip ;
