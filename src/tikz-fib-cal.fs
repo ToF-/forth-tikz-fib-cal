@@ -97,11 +97,11 @@ variable square#
     coord-max @ 0 do i .coord loop ;
 
 0 constant black 1 constant violet 2 constant green 3 constant blue
-4 constant red   5 constant orange 6 constant brown 7 constant teal
+4 constant red   5 constant orange 6 constant teal  7 constant brown
 
 create color-names
-s" black" 2, s" violet" 2, s" olive" 2, s" blue" 2,
-s" red"   2, s" orange" 2, s" brown" 2, s" teal" 2,
+s" black" 2, s" violet" 2, s" olive" 2, s" blue"  2,
+s" red"   2, s" orange" 2, s" teal"  2, s" brown" 2,
 
 : color-name ( n -- ad,l )
     cells 2* color-names + 2@ ;
@@ -141,11 +141,14 @@ fill-color-table
     ." \end{tikzpicture}" cr
     ." \end{document}" cr ;
 
+: .tex-comment ( n -- )
+    ." % latex file for a " 1 .r ."  days calendar" cr ;
 : .year-calendar ( x,y,f -- )
     if 1 else 0 then 365 + coord-limit !
+    coord-limit @ .tex-comment
     coord-max off
     8 fib-squares
     last-coord 2@ dir-down 5 21 rectangle
     .tex-header
-    365 0 do i .tikz-node loop
+    coord-limit @ 0 do i .tikz-node loop
     .tex-footer ;

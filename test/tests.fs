@@ -104,8 +104,8 @@ t{
      14 color-index blue   ?s
      15 color-index red    ?s
      40 color-index orange ?s
-    105 color-index brown  ?s
-    273 color-index teal   ?s
+    105 color-index teal   ?s
+    273 color-index brown  ?s
     
 }t
 bye
