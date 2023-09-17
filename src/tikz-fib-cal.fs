@@ -96,7 +96,16 @@ variable square#
         i 2@ .coord
     2 cells +loop ;
 
-create colors
+0 constant black
+1 constant violet
+2 constant green
+3 constant blue
+4 constant red
+5 constant orange
+6 constant brown
+7 constant teal
+
+create color-names
 s" black" 2,
 s" violet" 2,
 s" olive" 2,
@@ -104,19 +113,22 @@ s" blue" 2,
 s" red" 2,
 s" orange" 2,
 s" brown" 2,
+s" teal" 2,
 
-: color-s ( n -- ad,l )
-    cells 2* colors + 2@ ;
+: color-name ( n -- ad,l )
+    cells 2* color-names + 2@ ;
 
-create color-table
-  1 , 0 ,
-  2 , 0 ,
-  6 , 1 ,
- 15 , 2 ,
- 40 , 3 ,
-104 , 4 ,
-273 , 5 ,
-366 , 6 ,
+
+create color-table 8 cells 2* allot
+
+: fill-color-table 
+    0 8 0 do 
+        i 1+ fib dup * + 
+        dup color-table i cells 2* + !
+        i   color-table i cells 2* + cell+ ! 
+    loop ;
+
+fill-color-table
 
 : color-index ( n -- i )
     color-table 8 cells 2* bounds do

@@ -85,26 +85,27 @@ t{
 }t
 .( color strings ) CR
 t{
-    0 color-s s" black" ?str
-    1 color-s s" violet" ?str
-    2 color-s s" olive" ?str
-    3 color-s s" blue" ?str
-    4 color-s s" red" ?str
-    5 color-s s" orange" ?str
-    6 color-s s" brown" ?str
+    black    color-name s" black"  ?str
+    violet   color-name s" violet" ?str
+    green    color-name s" olive"  ?str
+    blue     color-name s" blue"   ?str
+    red      color-name s" red"    ?str
+    orange   color-name s" orange" ?str
+    brown    color-name s" brown"  ?str
+    teal     color-name s" teal"   ?str
 }t
 .( color index ) CR
 t{
-    0 color-index 0 ?s
-    1 color-index 0 ?s
-    2 color-index 1 ?s
-    5 color-index 1 ?s
-    6 color-index 2 ?s
-    14 color-index 2 ?s
-    15 color-index 3 ?s
-    40 color-index 4 ?s
-    105 color-index 5 ?s
-    273 color-index 6 ?s
+      0 color-index black  ?s
+      1 color-index violet ?s
+      2 color-index green  ?s
+      5 color-index green  ?s
+      6 color-index blue   ?s
+     14 color-index blue   ?s
+     15 color-index red    ?s
+     40 color-index orange ?s
+    105 color-index brown  ?s
+    273 color-index teal   ?s
     
 }t
 
