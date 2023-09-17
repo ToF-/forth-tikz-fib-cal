@@ -41,6 +41,8 @@ create coords max-coords cells 2* allot
 variable coord-max
 variable coord-limit
 
+: coord ( n -- x,y )
+    cells 2* coords + 2@ ;
 
 variable (square-xt)
 variable direction
@@ -88,36 +90,21 @@ variable square#
         last-coord 2@ 1 0 direction @ rotate translate last-coord 2!
     loop ;
 
-: .coord ( x,y -- )
-    swap ." (" 1 .r ." ," 1 .r ." ) " ;
+: .coord ( n -- )
+    coord swap ." (" 1 .r ." ," 1 .r ." ) " ;
 
 : .coords
-    coords coord-max @ cells 2* bounds do
-        i 2@ .coord
-    2 cells +loop ;
+    coord-max @ 0 do i .coord loop ;
 
-0 constant black
-1 constant violet
-2 constant green
-3 constant blue
-4 constant red
-5 constant orange
-6 constant brown
-7 constant teal
+0 constant black 1 constant violet 2 constant green 3 constant blue
+4 constant red   5 constant orange 6 constant brown 7 constant teal
 
 create color-names
-s" black" 2,
-s" violet" 2,
-s" olive" 2,
-s" blue" 2,
-s" red" 2,
-s" orange" 2,
-s" brown" 2,
-s" teal" 2,
+s" black" 2, s" violet" 2, s" olive" 2, s" blue" 2,
+s" red"   2, s" orange" 2, s" brown" 2, s" teal" 2,
 
 : color-name ( n -- ad,l )
     cells 2* color-names + 2@ ;
-
 
 create color-table 8 cells 2* allot
 
@@ -137,3 +124,28 @@ fill-color-table
             leave
         then
     2 cells +loop nip ;
+
+: .tex-header
+    ." \documentclass[a4paper,landscape]{article}" cr
+    ." \usepackage{tikz}" cr
+    ." \begin{document}" cr
+    ." \thispagestyle{empty}" cr
+    ." \begin{tikzpicture}[transform canvas={scale=1.0}]" cr ;
+
+: .tikz-node ( n -- )
+    ." \node[draw,thick,circle,color=" dup color-index color-name type
+    ." ,minimum size=0.9cm,inner sep=0pt] at " dup .coord 
+    ."  {$" 1+ 1 .r ." $};" cr ;
+
+: .tex-footer
+    ." \end{tikzpicture}" cr
+    ." \end{document}" cr ;
+
+: .year-calendar ( x,y,f -- )
+    if 1 else 0 then 365 + coord-limit !
+    coord-max off
+    8 fib-squares
+    last-coord 2@ dir-down 5 21 rectangle
+    .tex-header
+    365 0 do i .tikz-node loop
+    .tex-footer ;

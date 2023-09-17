@@ -36,15 +36,15 @@ t{
     365 coord-limit !
     10 2 dir-up 3 square
     coord-max @ 9 ?s
-    coords 0 cells 2* + 2@ 10 2 ?d
-    coords 1 cells 2* + 2@ 10 1 ?d
-    coords 2 cells 2* + 2@ 10 0 ?d
-    coords 3 cells 2* + 2@  9 2 ?d
-    coords 4 cells 2* + 2@  9 1 ?d
-    coords 5 cells 2* + 2@  9 0 ?d
-    coords 6 cells 2* + 2@  8 2 ?d
-    coords 7 cells 2* + 2@  8 1 ?d
-    coords 8 cells 2* + 2@  8 0 ?d
+    0 coord 10 2 ?d
+    1 coord 10 1 ?d
+    2 coord 10 0 ?d
+    3 coord  9 2 ?d
+    4 coord  9 1 ?d
+    5 coord  9 0 ?d
+    6 coord  8 2 ?d
+    7 coord  8 1 ?d
+    8 coord  8 0 ?d
 }t
 .( rectangle ) CR
 t{
@@ -52,12 +52,12 @@ t{
     365 coord-limit !
     0 0 dir-right 3 2 rectangle
     coord-max @ 6 ?s
-    coords 0 cells 2* + 2@  0 0 ?d
-    coords 1 cells 2* + 2@  1 0 ?d
-    coords 2 cells 2* + 2@  2 0 ?d
-    coords 3 cells 2* + 2@  0 -1 ?d
-    coords 4 cells 2* + 2@  1 -1 ?d
-    coords 5 cells 2* + 2@  2 -1 ?d
+    0 coord 0 0 ?d
+    1 coord 1 0 ?d
+    2 coord 2 0 ?d
+    3 coord 0 -1 ?d
+    4 coord 1 -1 ?d
+    5 coord 2 -1 ?d
 }t
 .( fibonacci squares ) CR
 t{
@@ -66,22 +66,22 @@ t{
     0 0 8 fib-squares
     last-coord 2@ dir-down 5 21 rectangle
     coord-max @  365 ?s
-    coords  0 cells 2* + 2@  0  0 ?d
-    coords  1 cells 2* + 2@  0 -1 ?d
-    coords  2 cells 2* + 2@ -1 -1 ?d
-    coords  3 cells 2* + 2@ -2 -1 ?d
-    coords  4 cells 2* + 2@ -1  0 ?d
-    coords  5 cells 2* + 2@ -2  0 ?d
-    coords  6 cells 2* + 2@ -2  1 ?d
-    coords  7 cells 2* + 2@ -2  2 ?d
-    coords  8 cells 2* + 2@ -2  3 ?d
-    coords  9 cells 2* + 2@ -1  1 ?d
-    coords 10 cells 2* + 2@ -1  2 ?d
-    coords 11 cells 2* + 2@ -1  3 ?d
-    coords 12 cells 2* + 2@  0  1 ?d
-    coords 13 cells 2* + 2@  0  2 ?d
-    coords 14 cells 2* + 2@  0  3 ?d
-    coords 364 cells 2* + 2@ 3 5 ?d
+       0 coord  0  0 ?d
+       1 coord  0 -1 ?d
+       2 coord -1 -1 ?d
+       3 coord -2 -1 ?d
+       4 coord -1  0 ?d
+       5 coord -2  0 ?d
+       6 coord -2  1 ?d
+       7 coord -2  2 ?d
+       8 coord -2  3 ?d
+       9 coord -1  1 ?d
+      10 coord -1  2 ?d
+      11 coord -1  3 ?d
+      12 coord  0  1 ?d
+      13 coord  0  2 ?d
+      14 coord  0  3 ?d
+     364 coord  3  5 ?d
 }t
 .( color strings ) CR
 t{
@@ -108,5 +108,4 @@ t{
     273 color-index teal   ?s
     
 }t
-
 bye
